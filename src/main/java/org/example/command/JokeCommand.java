@@ -1,21 +1,18 @@
 package org.example.command;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import java.util.Random;
+import org.example.api.JokeAPI;
 
 public class JokeCommand implements ICommand {
-    private static final String[] JOKES = {
-        "Pourquoi les plongeurs plongent-ils toujours en arrière et jamais en avant? Parce que sinon ils tombent dans le bateau!",
-        "Quel est le comble pour un électricien? De ne pas être au courant!",
-        "Qu'est-ce qu'un crocodile qui surveille la pharmacie? Un Lacoste-guard!",
-        "Comment appelle-t-on un chat tombé dans un pot de peinture le jour de Noël? Un chat-peint de Noël!"
-    };
-
     @Override
     public void execute(MessageReceivedEvent event, String[] args) {
-        Random random = new Random();
-        String randomJoke = JOKES[random.nextInt(JOKES.length)];
-        event.getChannel().sendMessage("😂 " + randomJoke).queue();
+        JokeAPI.Joke joke = JokeAPI.getRandomJoke();
+
+        if (joke != null) {
+            event.getChannel().sendMessage("😂 " + joke).queue();
+        } else {
+            event.getChannel().sendMessage("❌ Impossible de récupérer une blague en ce moment.").queue();
+        }
     }
 
     @Override
@@ -25,6 +22,6 @@ public class JokeCommand implements ICommand {
 
     @Override
     public String getDescription() {
-        return "Raconte une blague aléatoire";
+        return "Raconte une blague aléatoire (depuis une API)";
     }
 }
