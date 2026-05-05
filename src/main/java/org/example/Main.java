@@ -14,7 +14,7 @@ public class Main extends ListenerAdapter{
 
     public static void main(String[] args) throws Exception {
         JDA jda = JDABuilder
-                .createDefault("MTUwMTEyMzI0NDg1MjUxMDc0MA.GZ9VCp.kXZ8y25yGZ3c7VfgZU-SZwGR9-HeHg1SNRaqBE")
+                .createDefault("token")
                 .setStatus(OnlineStatus.ONLINE)
                 .setActivity(Activity.playing("mon premier bot"))
                 .enableIntents(GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT)
